@@ -2178,8 +2178,10 @@ get_system_identitier(char *system_id, size_t size)
 	strncpy(system_id, "Windows", size-1);
 	system_id[size-1] = '\0';
 #else
+#ifndef __SWITCH__
 	strncpy(system_id, "Unknown", size-1);
 	system_id[size-1] = '\0';
+#endif
 #endif
 }
 
@@ -2506,7 +2508,7 @@ get_gmoffset(struct tm *tm)
 
 #if defined(HAVE__GET_TIMEZONE)
 	_get_timezone(&offset);
-#elif defined(__CYGWIN__) || defined(__MINGW32__) || defined(__BORLANDC__)
+#elif defined(__CYGWIN__) || defined(__MINGW32__) || defined(__BORLANDC__) || defined(__SWITCH__)
 	offset = _timezone;
 #else
 	offset = timezone;
