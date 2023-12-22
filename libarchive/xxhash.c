@@ -93,16 +93,6 @@ You can contact the author at :
 #define XXH_memcpy memcpy
 
 
-static unsigned int	  XXH32 (const void*, unsigned int, unsigned int);
-static void*		  XXH32_init   (unsigned int);
-static XXH_errorcode	  XXH32_update (void*, const void*, unsigned int);
-static unsigned int	  XXH32_digest (void*);
-/*static int		  XXH32_sizeofState(void);*/
-static XXH_errorcode	  XXH32_resetState(void*, unsigned int);
-#define       XXH32_SIZEOFSTATE 48
-typedef struct { long long ll[(XXH32_SIZEOFSTATE+(sizeof(long long)-1))/sizeof(long long)]; } XXH32_stateSpace_t;
-static unsigned int	  XXH32_intermediateDigest (void*);
-
 /***************************************
 ** Basic Types
 ****************************************/
@@ -120,6 +110,16 @@ static unsigned int	  XXH32_intermediateDigest (void*);
   typedef   signed int       S32;
   typedef unsigned long long U64;
 #endif
+
+static U32    XXH32 (const void*, unsigned int, U32);
+static void*          XXH32_init   (U32);
+static XXH_errorcode      XXH32_update (void*, const void*, unsigned int);
+static U32    XXH32_digest (void*);
+/*static int          XXH32_sizeofState(void);*/
+static XXH_errorcode      XXH32_resetState(void*, U32);
+#define       XXH32_SIZEOFSTATE 48
+typedef struct { long long ll[(XXH32_SIZEOFSTATE+(sizeof(long long)-1))/sizeof(long long)]; } XXH32_stateSpace_t;
+static U32    XXH32_intermediateDigest (void*);
 
 #if defined(__GNUC__)  && !defined(XXH_USE_UNALIGNED_ACCESS)
 #  define _PACKED __attribute__ ((packed))
