@@ -57,6 +57,13 @@
 #include "archive_read_private.h"
 #include "filter_fork.h"
 
+#ifdef __3DS__
+int
+__archive_read_program(struct archive_read_filter *self, const char *cmd) {
+	return (ARCHIVE_OK);
+}
+#else
+
 
 #if ARCHIVE_VERSION_NUMBER < 4000000
 /* Deprecated; remove in libarchive 4.0 */
@@ -493,3 +500,6 @@ program_filter_close(struct archive_read_filter *self)
 
 	return (e);
 }
+
+#endif
+
