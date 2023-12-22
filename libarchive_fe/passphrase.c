@@ -131,9 +131,12 @@ readpassphrase(const char *prompt, char *buf, size_t bufsiz, int flags)
 #endif
 #include <signal.h>
 #include <string.h>
+#ifndef __3DS__
 #include <termios.h>
+#endif
 #include <unistd.h>
 
+#ifndef __3DS__
 #ifndef _PATH_TTY
 #define _PATH_TTY "/dev/tty"
 #endif
@@ -318,7 +321,12 @@ restart:
 }
 #endif /* _WIN32 && !__CYGWIN__ */
 #endif /* HAVE_READPASSPHRASE */
-
+#else
+static char* readpassphrase(const char *prompt, char *buf, size_t bufsiz, int flags)
+{
+  return NULL;
+}
+#endif /* __3DS__ */
 char *
 lafe_readpassphrase(const char *prompt, char *buf, size_t bufsiz)
 {
